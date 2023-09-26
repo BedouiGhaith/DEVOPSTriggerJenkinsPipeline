@@ -8,13 +8,6 @@ pipeline {
                 checkout scm
             }
         }
-        
-        stage('Build') {
-            steps {
-                // Your build steps go here
-                // For example: sh 'mvn clean install'
-            }
-        }
     }
 
     post {
