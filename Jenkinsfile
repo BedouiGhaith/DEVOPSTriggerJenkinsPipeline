@@ -1,21 +1,25 @@
 pipeline {
     agent any
-
+    triggers {
+        // PollSCM trigger to periodically check for new commits
+        pollSCM('* * * * *')
+    }
     stages {
-        stage('Send Email') {
+        stage('Checkout') {
             steps {
                 script {
-                    // Obtain the committer's email address from the webhook payload
-                    def committerEmail = env.GIT_COMMITTER_EMAIL
-
-                    if (committerEmail) {
-                        emailext subject: "Commit Notification",
-                                  body: "A commit has been made to the repository.",
-                                  to: committerEmail,
-                                  recipientProviders: [[$class: 'CulpritsRecipientProvider']]
-                    } else {
-                        echo "Committer email not found in the webhook payload."
-                    }
+                    // Checkout the code from the Git repository
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/BedouiGhaith/DEVOPSTriggerJenkinsPipeline.git']]])
+                    
+                    // Read the content of the README.md file
+                    def readmeContent = readFile('README.md')
+                    
+                    // Send an email with the README.md content
+                    mail(
+                        subject: "New Commit in the Repository",
+                        body: "A new commit has been pushed to the repository.\n\nREADME.md content:\n\n${readmeContent}",
+                        to: "bedoui.ghaith@gmail.com",
+                    )
                 }
             }
         }
