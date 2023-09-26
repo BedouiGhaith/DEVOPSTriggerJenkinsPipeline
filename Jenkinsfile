@@ -1,15 +1,6 @@
 pipeline {
     agent any
-    triggers {
-        // PollSCM trigger to periodically check for new commits
-        pollSCM('* * * * *')
-    }
     stages {
-        stage('Checkout') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/BedouiGhaith/DEVOPSTriggerJenkinsPipeline.git']]])
-            }
-        }
         stage('Send Email') {
             steps {
                 emailext(
