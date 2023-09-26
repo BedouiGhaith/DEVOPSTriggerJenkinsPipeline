@@ -4,27 +4,33 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout your source code repository here
+                // Checkout your source code from your version control system (e.g., Git)
                 checkout scm
             }
         }
         
         stage('Build') {
             steps {
-                // Add your build steps here
-                // For example: sh 'mvn clean package'
+                // Your build steps go here
+                // For example: sh 'mvn clean install'
             }
         }
     }
-    
+
     post {
         success {
-            script {
-                def committerEmail = sh(script: 'git log -1 --pretty=format:%ae', returnStdout: true).trim()
-                emailext to: "${committerEmail}",
-                         subject: "Build Successful",
-                         body: "Your commit has been successfully built and tested."
-            }
+            // Send an email on successful build
+            emailext subject: "Build Successful - ${currentBuild.fullDisplayName}",
+                      body: "The build was successful. Thanks for your contribution!",
+                      to: "${currentBuild.committer_email}",
+                      recipientProviders: [[$class: 'RequesterRecipientProvider']]
+        }
+        failure {
+            // Send an email on build failure
+            emailext subject: "Build Failed - ${currentBuild.fullDisplayName}",
+                      body: "The build failed. Please check your changes and try again.",
+                      to: "${currentBuild.committer_email}",
+                      recipientProviders: [[$class: 'RequesterRecipientProvider']]
         }
     }
 }
