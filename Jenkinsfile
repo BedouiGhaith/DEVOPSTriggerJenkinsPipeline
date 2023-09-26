@@ -9,7 +9,7 @@ pipeline {
             steps {
                 script {
                     // Checkout the code from the Git repository
-                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://https://github.com/BedouiGhaith/DEVOPSTriggerJenkinsPipeline.git']]])
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/BedouiGhaith/DEVOPSTriggerJenkinsPipeline.git']]])
                     
                     // Send an email after checkout
                     mail(
