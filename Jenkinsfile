@@ -6,7 +6,7 @@ pipeline {
                 emailext(
                     subject: "Test Email",
                     body: "This is a test email sent from Jenkins.",
-                    to: "recipient@example.com",
+                    to: "bedoui.ghaith@gmail.com",
                     mimeType: 'text/plain'
                 )
             }
