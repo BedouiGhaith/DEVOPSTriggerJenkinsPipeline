@@ -17,7 +17,7 @@ pipeline {
                     // Send an email with the README.md content
                     mail(
                         subject: "New Commit in the Repository",
-                        body: "A new commit has been pushed to the repository. README.md content:\n\n${readmeContent}",
+                        body: "A new commit has been pushed to the repository.\n\nREADME.md content:\n\n${readmeContent}",
                         to: "bedoui.ghaith@gmail.com",
                     )
                 }
