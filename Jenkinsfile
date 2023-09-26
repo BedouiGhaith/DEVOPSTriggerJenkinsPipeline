@@ -1,19 +1,13 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/BedouiGhaith/DEVOPSTriggerJenkinsPipeline.git']]])
-            }
-        }
         stage('Send Email') {
             steps {
                 emailext(
-                    subject: "Nouveau commit dans le dépôt",
-                    body: "${currentBuild.fullDisplayName} a été déclenché par ${currentBuild.buildCauses}",
-                    to: "bedoui.ghaith@gmail.com",
-                    mimeType: 'text/plain',
-                    attachmentsPattern: '**/README.txt'
+                    subject: "Test Email",
+                    body: "This is a test email sent from Jenkins.",
+                    to: "recipient@example.com",
+                    mimeType: 'text/plain'
                 )
             }
         }
