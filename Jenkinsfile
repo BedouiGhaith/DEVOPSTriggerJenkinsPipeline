@@ -16,7 +16,7 @@ pipeline {
                         subject: "New Commit in the Repository",
                         body: "A new commit has been pushed to the repository.",
                         to: "bedoui.ghaith@gmail.com",
-                        attachmentsPattern: '**/README.txt'
+                        attachmentsPattern: '**/README.md'
                     )
                 }
             }
