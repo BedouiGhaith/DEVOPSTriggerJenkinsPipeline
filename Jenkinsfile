@@ -11,14 +11,17 @@ pipeline {
                     // Checkout the code from the Git repository
                     checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/BedouiGhaith/DEVOPSTriggerJenkinsPipeline.git']]])
                     
+                    // Get the email address of the committer of the latest commit
+                    def committerEmail = sh(script: 'git log -1 --pretty=format:%ae', returnStdout: true).trim()
+                    
                     // Read the content of the README.md file
                     def readmeContent = readFile('README.md')
                     
-                    // Send an email with the README.md content
+                    // Send an email with the README.md content to the committer
                     mail(
                         subject: "New Commit in the Repository",
-                        body: "A new commit has been pushed to the repository.\n\nREADME.md content:\n\n${readmeContent}",
-                        to: "bedoui.ghaith@gmail.com",
+                        body: "A new commit has been pushed to the repository. README.md content:\n\n${readmeContent}",
+                        to: committerEmail,
                     )
                 }
             }
