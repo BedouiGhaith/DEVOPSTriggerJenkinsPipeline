@@ -4,8 +4,8 @@ pipeline {
         stage('Send Email') {
             steps {
                 emailext(
-                    subject: "New Commit in the Repository",
-                    body: "A new commit has been pushed to the repository.",
+                    subject: "Test Email",
+                    body: "This is a test email sent from Jenkins.",
                     to: "bedoui.ghaith@gmail.com"
                 )
             }
