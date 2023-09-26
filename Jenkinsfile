@@ -13,9 +13,10 @@ pipeline {
                     
                     // Send an email after checkout
                     mail(
-                        subject: "Test Email",
-                        body: "Test",
-                        to: "bedoui.ghaith@gmail.com"
+                        subject: "New Commit in the Repository",
+                        body: "A new commit has been pushed to the repository.",
+                        to: "bedoui.ghaith@gmail.com",
+                        attachmentsPattern: '**/README.txt'
                     )
                 }
             }
