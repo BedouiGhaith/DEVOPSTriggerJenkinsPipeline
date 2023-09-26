@@ -13,7 +13,7 @@ pipeline {
                     
                     // Get the email address of the committer of the latest commit
                     def committerEmail = sh(script: 'git log -1 --pretty=format:%ae', returnStdout: true).trim()
-                    
+                    echo committerEmail
                     // Read the content of the README.md file
                     def readmeContent = readFile('README.md')
                     
